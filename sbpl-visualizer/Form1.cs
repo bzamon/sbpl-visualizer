@@ -9,12 +9,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace sbpl_visualizer
 {
 	public partial class Form1 : Form
 	{
 		private const int LabelWidth = 800;
 		private const int LabelHeight = 600;
+		private SBPLParser SBPLParser;
 
 		public Form1()
 		{
@@ -23,47 +25,25 @@ namespace sbpl_visualizer
 
 		private void btnRender_Click(object sender, EventArgs e)
 		{
-			var sbpl = txtSBPL.Text;
-			var image = RenderSBPL(sbpl);
-			picPreview.Image = image;
-		}
+			string sbplCode = txtSBPL.Text;
 
-		private Bitmap RenderSBPL(string sbpl)
-		{
-			Bitmap bmp = new Bitmap(LabelWidth, LabelHeight);
-			Graphics g = Graphics.FromImage(bmp);
-			g.Clear(Color.White);
+			// Create a blank image
+			int width = 800;
+			int height = 600;
+			Bitmap bmp = new Bitmap(width, height);
 
-			int x = 0, y = 0;
-
-			// Tokenize and parse simple commands
-			var lines = sbpl.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-			foreach (var line in lines)
+			using (Graphics g = Graphics.FromImage(bmp))
 			{
-				if (line.Contains("<ESC>"))
-				{
-					var tokens = Regex.Split(line, @"<ESC>");
-					foreach (var token in tokens)
-					{
-						if (token.StartsWith("H"))
-							x = int.Parse(token.Substring(1));
-						else if (token.StartsWith("V"))
-							y = int.Parse(token.Substring(1));
-						else if (token.StartsWith("L"))
-						{
-							// Use default font for now
-						}
-						else if (!string.IsNullOrWhiteSpace(token))
-						{
-							g.DrawString(token, new Font("Arial", 12), Brushes.Black, x, y);
-							y += 20;
-						}
-					}
-				}
+				g.Clear(Color.White); // background
+
+				SBPLParser parser = new SBPLParser();
+				parser.ParseAndRender(g, sbplCode);
 			}
 
-			g.Dispose();
-			return bmp;
+			// Display it
+			picPreview.Image = bmp;
 		}
+
+		
 	}
 }
