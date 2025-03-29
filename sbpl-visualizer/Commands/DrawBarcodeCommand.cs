@@ -34,6 +34,7 @@ namespace sbpl_visualizer
 			int wide = Math.Max(narrow + 1, (int)Math.Round(narrow * 3.0));
 
 
+
 			string data = argument.Substring(6).Trim();
 			if (data.Length % 2 != 0 || !IsNumeric(data)) return;
 
@@ -42,9 +43,24 @@ namespace sbpl_visualizer
 			Debug.WriteLine("0253279830");
 			Debug.WriteLine(data);
 
+			var state = g.Save();
+
+			int drawX = context.X + context.OffsetX;
+			int drawY = context.Y + context.OffsetY;
+
+			if (context.Rotation != 0)
+			{
+				g.TranslateTransform(drawX, drawY);                 // Move to the barcode origin
+				g.RotateTransform(context.Rotation);                // Apply rotation around that point
+				drawX = 0;
+				drawY = 0;
+				//context.Rotation = 0;
+			}
+
+
 			// Start pattern
-			DrawPattern(g, x, y, "1010", narrow, wide, height);
-			x += GetPatternWidth("1010", narrow, wide);
+			DrawPattern(g, drawX, drawY, "1010", narrow, wide, height);
+			drawX += GetPatternWidth("1010", narrow, wide);
 
 			// Data encoding
 			for (int i = 0; i < data.Length; i += 2)
@@ -58,16 +74,18 @@ namespace sbpl_visualizer
 				for (int j = 0; j < 5; j++)
 				{
 					int barWidth = bars[j] == '1' ? wide : narrow;
-					g.FillRectangle(Brushes.Black, x, y, barWidth, height);
-					x += barWidth;
+					g.FillRectangle(Brushes.Black, drawX, drawY, barWidth, height);
+					drawX += barWidth;
 
 					int spaceWidth = spaces[j] == '1' ? wide : narrow;
-					x += spaceWidth;
+					drawX += spaceWidth;
 				}
 			}
 
 			// Stop pattern
-			DrawPattern(g, x, y, "1101", narrow, wide, height);
+			DrawPattern(g, drawX, drawY, "1101", narrow, wide, height);
+
+			g.Restore(state); // Restore original transform
 		}
 
 		private void DrawPattern(Graphics g, int x, int y, string pattern, int narrow, int wide, int height)

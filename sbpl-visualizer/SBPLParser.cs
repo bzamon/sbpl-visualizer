@@ -29,7 +29,7 @@ namespace sbpl_visualizer
 			{ "B", new DrawBarcodeCommand() }, // For now, its not properly implemented. It generates a fake image
 			{ "A3", new SetOffsetCommand() }, // Set Offset for MoveX and MoveY. Template: A3H100V050
 			{ "L", new SetScaleCommand() }, // To enlarge text or barcode. Template: L0203 → 2× horizontal, 3× vertical
-
+			{ "%", new SetRotationCommand() },
 			};
 		}
 		

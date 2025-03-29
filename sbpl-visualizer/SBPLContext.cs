@@ -19,7 +19,7 @@ namespace sbpl_visualizer
 		public int OffsetY { get; set; } = 0;
 		public Font CurrentFont { get; set; } = new Font("Arial", 12);
 		public string FontCode { get; set; } = "M"; // Default to Medium
-
+		public int Rotation { get; set; } = 0; // 0, 90, 180, 270 degrees
 
 	}
 }
