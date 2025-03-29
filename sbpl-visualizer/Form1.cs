@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,6 +40,7 @@ namespace sbpl_visualizer
 
 				SBPLParser parser = new SBPLParser();
 				parser.ParseAndRender(g, sbplCode, "\u001b");
+
 			}
 
 			// Display it

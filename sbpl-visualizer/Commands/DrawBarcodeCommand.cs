@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 
@@ -6,6 +7,8 @@ namespace sbpl_visualizer
 {
 	internal class DrawBarcodeCommand : ISBPLCommand
 	{
+		private const float DotUnit = 0.5f;
+
 		private readonly string[] ITF_ENCODING = {
 			"00110", "10001", "01001", "11000", "00101",
 			"10100", "01100", "00011", "10010", "01010"
@@ -19,19 +22,25 @@ namespace sbpl_visualizer
 			char symbology = argument[0];
 			if (symbology != '2') return; // Only ITF supported for now
 
-			if (!int.TryParse(argument.Substring(1, 2), out int narrow) || narrow < 1 || narrow > 36)
+			if (!int.TryParse(argument.Substring(1, 2), out int narrowBase) || narrowBase < 1 || narrowBase > 36)
 				return;
 
-			if (!int.TryParse(argument.Substring(3, 3), out int height) || height < 1 || height > 999)
+			if (!int.TryParse(argument.Substring(3, 3), out int heightBase) || heightBase < 1 || heightBase > 999)
 				return;
+
+			// Apply scaling from L command
+			int narrow = Math.Max(1, (int)Math.Round(narrowBase * DotUnit * context.ScaleX));
+			int height = Math.Max(1, (int)Math.Round(heightBase * DotUnit * context.ScaleY));
+			int wide = Math.Max(narrow + 1, (int)Math.Round(narrow * 3.0));
+
 
 			string data = argument.Substring(6).Trim();
 			if (data.Length % 2 != 0 || !IsNumeric(data)) return;
 
-			int wide = (int)(narrow * 2.5);
 			int x = context.X + context.OffsetX;
 			int y = context.Y + context.OffsetY;
-
+			Debug.WriteLine("0253279830");
+			Debug.WriteLine(data);
 
 			// Start pattern
 			DrawPattern(g, x, y, "1010", narrow, wide, height);
@@ -80,7 +89,7 @@ namespace sbpl_visualizer
 			return total;
 		}
 
-		public bool IsNumeric(string input)
+		private bool IsNumeric(string input)
 		{
 			return !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
 		}

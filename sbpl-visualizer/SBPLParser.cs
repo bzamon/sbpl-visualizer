@@ -28,6 +28,8 @@ namespace sbpl_visualizer
 			{ "M", new CompositeCommand(new SetMediumFontCommand(), new DrawTextCommand()) }, // Set Medium Font and Write Text
 			{ "B", new DrawBarcodeCommand() }, // For now, its not properly implemented. It generates a fake image
 			{ "A3", new SetOffsetCommand() }, // Set Offset for MoveX and MoveY. Template: A3H100V050
+			{ "L", new SetScaleCommand() }, // To enlarge text or barcode. Template: L0203 → 2× horizontal, 3× vertical
+
 			};
 		}
 		

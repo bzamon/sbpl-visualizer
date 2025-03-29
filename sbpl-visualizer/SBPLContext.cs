@@ -10,7 +10,9 @@ namespace sbpl_visualizer
 {
 	public class SBPLContext
 	{
-		
+		public int ScaleX { get; set; } = 1;
+		public int ScaleY { get; set; } = 1;
+
 		public int X { get; set; }
 		public int Y { get; set; }
 		public int OffsetX { get; set; } = 0;

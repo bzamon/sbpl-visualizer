@@ -7,6 +7,6 @@ public class SetSmallFontCommand : ISBPLCommand
 	{
 		// Set font to Small (W8 x H15 dots ≈ 9pt font)
 		context.FontCode = "S";
-		context.CurrentFont = new Font(context.CurrentFont.FontFamily.Name, 9);
+		context.CurrentFont = new Font(context.CurrentFont.FontFamily.Name, 7);
 	}
 }
