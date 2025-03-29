@@ -15,6 +15,7 @@ public class DrawBarcodeCommand : ISBPLCommand
 		int height = 80;
 		int widthPerChar = 10;
 
+
 		Rectangle rect = new Rectangle(context.X, context.Y, data.Length * widthPerChar, height);
 
 		// Simulate a barcode (for now): black & white bars
@@ -30,7 +31,7 @@ public class DrawBarcodeCommand : ISBPLCommand
 		}
 
 		// Optional: draw the raw data below
-		g.DrawString(data, new Font("Arial", 10), Brushes.Black, context.X, context.Y + height + 5);
+		g.DrawString(data, new Font("Arial", 10), Brushes.Black, context.X + context.OffsetX, context.Y + context.OffsetY  + height + 5);
 
 		context.Y += height + 25;
 	}

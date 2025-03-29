@@ -7,7 +7,10 @@ public class DrawTextCommand : ISBPLCommand
 	{
 		if (!string.IsNullOrWhiteSpace(argument))
 		{
-			g.DrawString(argument, context.CurrentFont, Brushes.Black, context.X, context.Y);
+			int drawX = context.X + context.OffsetX;
+			int drawY = context.Y + context.OffsetY;
+
+			g.DrawString(argument, context.CurrentFont, Brushes.Black, drawX, drawY);
 			context.Y += 20; // Optional: shift cursor for next text
 		}
 	}

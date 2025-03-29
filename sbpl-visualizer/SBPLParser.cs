@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace sbpl_visualizer
 			{ "S", new CompositeCommand(new SetSmallFontCommand(), new DrawTextCommand()) },
 			{ "M", new CompositeCommand(new SetMediumFontCommand(), new DrawTextCommand()) },
 			{ "B", new DrawBarcodeCommand() }, // For now, its not properly implemented. It generates a fake image
+			{ "A3", new SetOffsetCommand() },
 		};
 		}
 
@@ -38,15 +40,25 @@ namespace sbpl_visualizer
 				if (string.IsNullOrWhiteSpace(token))
 					continue;
 
-				string commandKey = token.Substring(0, 1);
-				string argument = token.Length > 1 ? token.Substring(1) : "";
+				string commandKey = null;
 
-				if (commandMap.TryGetValue(commandKey, out var command))
+				// Match longest possible command key from the registered ones
+				foreach (var key in commandMap.Keys.OrderByDescending(k => k.Length))
 				{
-					command.Execute(g, context, argument);
+					if (token.StartsWith(key))
+					{
+						commandKey = key;
+						break;
+					}
 				}
-				else
+
+				if (commandKey != null)
 				{
+					string argument = token.Substring(commandKey.Length);
+					commandMap[commandKey].Execute(g, context, argument);
+				}else
+				{
+					Debug.WriteLine(token);
 					// Not an SBPL command? Skip it
 					//g.DrawString(token, context.CurrentFont, Brushes.Black, context.X, context.Y);
 					//context.Y += 20;
