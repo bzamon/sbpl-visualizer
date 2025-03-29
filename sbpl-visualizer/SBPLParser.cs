@@ -19,16 +19,19 @@ namespace sbpl_visualizer
 			{ "H", new MoveXCommand() },
 			{ "V", new MoveYCommand() },
 			{ "T", new DrawTextCommand() }, // Optional: command for plain text
-			{ "B", new DrawBarcodeCommand() },
+			{ "S", new CompositeCommand(new SetSmallFontCommand(), new DrawTextCommand()) },
+			{ "M", new CompositeCommand(new SetMediumFontCommand(), new DrawTextCommand()) },
+			{ "B", new DrawBarcodeCommand() }, // For now, its not properly implemented. It generates a fake image
 		};
 		}
 
-		public void ParseAndRender(Graphics g, string sbpl)
+		public void ParseAndRender(Graphics g, string sbpl, string charToSplit)
 		{
 			var context = new SBPLContext();
 
-			// Split by <ESC>
-			var tokens = Regex.Split(sbpl, "<ESC>");
+			
+			var tokens = Regex.Split(sbpl, charToSplit);
+
 
 			foreach (var token in tokens)
 			{
@@ -44,9 +47,9 @@ namespace sbpl_visualizer
 				}
 				else
 				{
-					// Not an SBPL command? Treat it as text
-					g.DrawString(token, context.CurrentFont, Brushes.Black, context.X, context.Y);
-					context.Y += 20;
+					// Not an SBPL command? Skip it
+					//g.DrawString(token, context.CurrentFont, Brushes.Black, context.X, context.Y);
+					//context.Y += 20;
 				}
 			}
 		}

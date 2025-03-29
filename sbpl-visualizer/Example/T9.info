@@ -1,0 +1,11 @@
+ACS6Z -> Set Printer Speed to 6
+A#E4Z -> Set Print Darkness to 4
+AA3H-0322V0000Z -> Set offset to HORIZONTAL -0322 and VERTICAL 0000
+
+P01 -> Set Character Pitch to 01 dot between pixel
+H430 -> Set Printer HORIZONTAL Position to 430
+V200 -> Set Printer VERTICAL Position to 200
+L0101 -> Set Printer Enlargement Ratio (HORIZONTAL and VERTICAL) to 01 and 01
+M@title@ -> Set to default printer font of W13 x H20 dots (MEDIUM FONT)
+
+S@dia@ -> Set to default printer font of W8 x H15 dots (SMALL FONT)

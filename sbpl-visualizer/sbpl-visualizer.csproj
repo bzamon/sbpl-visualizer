@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CompositeCommand.cs" />
     <Compile Include="Commands\DrawBarcodeCommand.cs" />
     <Compile Include="Commands\DrawTextCommand.cs" />
     <Compile Include="Commands\MoveXCommand.cs" />
     <Compile Include="Commands\MoveYCommand.cs" />
+    <Compile Include="Commands\SetMediumFontCommand.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +75,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Commands\SetSmallFontCommand.cs" />
+    <None Include="Example\T9.info" />
+    <None Include="Example\T9.S84" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

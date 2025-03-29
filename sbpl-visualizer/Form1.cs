@@ -37,13 +37,32 @@ namespace sbpl_visualizer
 				g.Clear(Color.White); // background
 
 				SBPLParser parser = new SBPLParser();
-				parser.ParseAndRender(g, sbplCode);
+				parser.ParseAndRender(g, sbplCode, "\u001b");
 			}
 
 			// Display it
 			picPreview.Image = bmp;
 		}
 
-		
+		private void btnRenderESC_Click(object sender, EventArgs e)
+		{
+			string sbplCode = txtSBPL.Text;
+
+			// Create a blank image
+			int width = 800;
+			int height = 600;
+			Bitmap bmp = new Bitmap(width, height);
+
+			using (Graphics g = Graphics.FromImage(bmp))
+			{
+				g.Clear(Color.White); // background
+
+				SBPLParser parser = new SBPLParser();
+				parser.ParseAndRender(g, sbplCode, "<ESC>");
+			}
+
+			// Display it
+			picPreview.Image = bmp;
+		}
 	}
 }

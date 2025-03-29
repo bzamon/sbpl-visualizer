@@ -31,6 +31,7 @@
 			this.txtSBPL = new System.Windows.Forms.TextBox();
 			this.btnRender = new System.Windows.Forms.Button();
 			this.picPreview = new System.Windows.Forms.PictureBox();
+			this.btnRenderESC = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -46,9 +47,9 @@
 			// 
 			this.btnRender.Location = new System.Drawing.Point(12, 374);
 			this.btnRender.Name = "btnRender";
-			this.btnRender.Size = new System.Drawing.Size(263, 23);
+			this.btnRender.Size = new System.Drawing.Size(129, 23);
 			this.btnRender.TabIndex = 1;
-			this.btnRender.Text = "button1";
+			this.btnRender.Text = "Parse like EDAM";
 			this.btnRender.UseVisualStyleBackColor = true;
 			this.btnRender.Click += new System.EventHandler(this.btnRender_Click);
 			// 
@@ -60,11 +61,22 @@
 			this.picPreview.TabIndex = 2;
 			this.picPreview.TabStop = false;
 			// 
+			// btnRenderESC
+			// 
+			this.btnRenderESC.Location = new System.Drawing.Point(147, 374);
+			this.btnRenderESC.Name = "btnRenderESC";
+			this.btnRenderESC.Size = new System.Drawing.Size(128, 23);
+			this.btnRenderESC.TabIndex = 3;
+			this.btnRenderESC.Text = "Parse using <ESC>";
+			this.btnRenderESC.UseVisualStyleBackColor = true;
+			this.btnRenderESC.Click += new System.EventHandler(this.btnRenderESC_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1118, 675);
+			this.Controls.Add(this.btnRenderESC);
 			this.Controls.Add(this.picPreview);
 			this.Controls.Add(this.btnRender);
 			this.Controls.Add(this.txtSBPL);
@@ -81,6 +93,7 @@
 		private System.Windows.Forms.TextBox txtSBPL;
 		private System.Windows.Forms.Button btnRender;
 		private System.Windows.Forms.PictureBox picPreview;
+		private System.Windows.Forms.Button btnRenderESC;
 	}
 }
 

@@ -12,5 +12,8 @@ namespace sbpl_visualizer
 		public int X { get; set; }
 		public int Y { get; set; }
 		public Font CurrentFont { get; set; } = new Font("Arial", 12);
+		public string FontCode { get; set; } = "M"; // Default to Medium
+
+
 	}
 }
