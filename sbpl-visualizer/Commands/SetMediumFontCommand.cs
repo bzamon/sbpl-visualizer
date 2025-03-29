@@ -7,6 +7,6 @@ public class SetMediumFontCommand : ISBPLCommand
 	{
 		// Set font to Medium (W13 x H20 dots ≈ 10pt font)
 		context.FontCode = "M";
-		context.CurrentFont = new Font("Arial", 10, FontStyle.Regular);
+		context.CurrentFont = new Font(context.CurrentFont.FontFamily.Name, 10);
 	}
 }

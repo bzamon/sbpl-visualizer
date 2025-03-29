@@ -37,15 +37,15 @@
 			// 
 			// txtSBPL
 			// 
-			this.txtSBPL.Location = new System.Drawing.Point(12, 67);
+			this.txtSBPL.Location = new System.Drawing.Point(12, 12);
 			this.txtSBPL.Multiline = true;
 			this.txtSBPL.Name = "txtSBPL";
-			this.txtSBPL.Size = new System.Drawing.Size(263, 292);
+			this.txtSBPL.Size = new System.Drawing.Size(263, 570);
 			this.txtSBPL.TabIndex = 0;
 			// 
 			// btnRender
 			// 
-			this.btnRender.Location = new System.Drawing.Point(12, 374);
+			this.btnRender.Location = new System.Drawing.Point(12, 588);
 			this.btnRender.Name = "btnRender";
 			this.btnRender.Size = new System.Drawing.Size(129, 23);
 			this.btnRender.TabIndex = 1;
@@ -55,15 +55,15 @@
 			// 
 			// picPreview
 			// 
-			this.picPreview.Location = new System.Drawing.Point(281, 67);
+			this.picPreview.Location = new System.Drawing.Point(281, 12);
 			this.picPreview.Name = "picPreview";
-			this.picPreview.Size = new System.Drawing.Size(800, 600);
+			this.picPreview.Size = new System.Drawing.Size(613, 394);
 			this.picPreview.TabIndex = 2;
 			this.picPreview.TabStop = false;
 			// 
 			// btnRenderESC
 			// 
-			this.btnRenderESC.Location = new System.Drawing.Point(147, 374);
+			this.btnRenderESC.Location = new System.Drawing.Point(147, 588);
 			this.btnRenderESC.Name = "btnRenderESC";
 			this.btnRenderESC.Size = new System.Drawing.Size(128, 23);
 			this.btnRenderESC.TabIndex = 3;
@@ -81,7 +81,7 @@
 			this.Controls.Add(this.btnRender);
 			this.Controls.Add(this.txtSBPL);
 			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Text = "SBPL Visualizer";
 			((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

@@ -82,6 +82,7 @@
     <Compile Include="Commands\SetSmallFontCommand.cs" />
     <None Include="Example\T9.info" />
     <None Include="Example\T9.S84" />
+    <None Include="Fonts\PressStart2P-Regular.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
