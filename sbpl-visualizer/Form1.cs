@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,8 @@ namespace sbpl_visualizer
 {
 	public partial class Form1 : Form
 	{
-		private const int LabelWidth = 800;
-		private const int LabelHeight = 600;
-		private SBPLParser SBPLParser;
+		private const int LabelWidth = 1050;
+		private const int LabelHeight = 701;
 
 		public Form1()
 		{
@@ -30,19 +30,26 @@ namespace sbpl_visualizer
 			string sbplCode = txtSBPL.Text;
 
 			// Create a blank image
-			int width = 800;
-			int height = 600;
-			Bitmap bmp = new Bitmap(width, height);
-
-			using (Graphics g = Graphics.FromImage(bmp))
+			int width = 1050;
+			int height = 701;
+			Bitmap bmp = new Bitmap((int)width, (int)height);
+            
+            using (Graphics g = Graphics.FromImage(bmp))
 			{
 				g.Clear(Color.White); // background
+                g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                g.PixelOffsetMode = PixelOffsetMode.None;
 
-				SBPLParser parser = new SBPLParser();
+                SBPLParser parser = new SBPLParser();
 				parser.ParseAndRender(g, sbplCode, "\u001b");
+                
+				Pen blackPen = new Pen(Color.Black, 1);
+				g.DrawLine(blackPen, 0, 180, 530, 180);
 
-			}
 
+            }
+
+            bmp.Save("C:\\APPS\\label.jpg");
 			// Display it
 			picPreview.Image = bmp;
 		}
@@ -52,7 +59,7 @@ namespace sbpl_visualizer
 			string sbplCode = txtSBPL.Text;
 
 			// Create a blank image
-			int width = 800;
+			int width = 600;
 			int height = 600;
 			Bitmap bmp = new Bitmap(width, height);
 

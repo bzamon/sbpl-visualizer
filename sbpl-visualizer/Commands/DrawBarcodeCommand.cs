@@ -7,7 +7,7 @@ namespace sbpl_visualizer
 {
 	internal class DrawBarcodeCommand : ISBPLCommand
 	{
-		private const float DotUnit = 0.5f;
+		private const float DotUnit = 1f;
 
 		private readonly string[] ITF_ENCODING = {
 			"00110", "10001", "01001", "11000", "00101",

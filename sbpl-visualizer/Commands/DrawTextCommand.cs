@@ -1,5 +1,7 @@
 ﻿using sbpl_visualizer;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 
 public class DrawTextCommand : ISBPLCommand
 {
@@ -33,7 +35,12 @@ public class DrawTextCommand : ISBPLCommand
 				context.Rotation = 0;
 			}
 
-			g.DrawString(argument, scaledFont, Brushes.Black, 0, 0); // Draw at new origin
+            g.SmoothingMode = SmoothingMode.None;
+            g.InterpolationMode = InterpolationMode.NearestNeighbor;
+            g.PixelOffsetMode = PixelOffsetMode.None;
+            g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
+
+            g.DrawString(argument, scaledFont, Brushes.Black, 0, 0); // Draw at new origin
 
 			g.Restore(state); // Restore original transform
 		}

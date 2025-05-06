@@ -26,7 +26,7 @@ namespace sbpl_visualizer
 			{ "T", new DrawTextCommand() }, // Optional: command for plain text
 			{ "S", new CompositeCommand(new SetSmallFontCommand(), new DrawTextCommand()) }, // Set Small Font and Write Text
 			{ "M", new CompositeCommand(new SetMediumFontCommand(), new DrawTextCommand()) }, // Set Medium Font and Write Text
-			{ "B", new DrawBarcodeCommand() }, // For now, its not properly implemented. It generates a fake image
+			{ "B", new DrawBarcodeCommand() }, // Its fake barcode generated to simulate a ITF barcode
 			{ "A3", new SetOffsetCommand() }, // Set Offset for MoveX and MoveY. Template: A3H100V050
 			{ "L", new SetScaleCommand() }, // To enlarge text or barcode. Template: L0203 → 2× horizontal, 3× vertical
 			{ "%", new SetRotationCommand() },
