@@ -44,18 +44,16 @@ public class DrawTextCommand : ISBPLCommand
 
     }
 
-    public void Execute(Graphics g, SBPLContext context, string argument)
+	public void Execute(Graphics g, SBPLContext context, string argument)
 	{
 		if (!(argument == null))
 		{
 			int drawX = context.X + context.OffsetX;
 			int drawY = context.Y + context.OffsetY;
 
-			// Use only vertical scale to set font height
-			var scaledFont = new Font(context.CurrentFont.FontFamily, context.CurrentFont.Size);
-
 			// Save original state
 			var state = g.Save();
+			var format = StringFormat.GenericTypographic;
 
 
 
@@ -81,7 +79,19 @@ public class DrawTextCommand : ISBPLCommand
             g.PixelOffsetMode = PixelOffsetMode.None;
             g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
 
-            g.DrawString(argument, scaledFont, Brushes.Black, 0, 0); // Draw at new origin
+			using (var scaledFont = new Font(context.CurrentFont.FontFamily, context.CurrentFont.Size, context.CurrentFont.Style))
+			{
+				float currentX = 0f;
+
+				foreach (char ch in argument)
+				{
+					string text = ch.ToString();
+					g.DrawString(text, scaledFont, Brushes.Black, currentX, 0, format);
+
+					SizeF size = g.MeasureString(text, scaledFont, PointF.Empty, format);
+					currentX += size.Width + context.CharacterPitch;
+				}
+			}
 
 			g.Restore(state); // Restore original transform
 		}

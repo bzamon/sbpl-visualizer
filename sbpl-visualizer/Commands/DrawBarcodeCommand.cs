@@ -17,16 +17,32 @@ namespace sbpl_visualizer
 		public void Execute(Graphics g, SBPLContext context, string argument)
 		{
 			if (argument.Length < 7)
+			{
+				AppLogger.Warn("Barcode command ignored: argument too short", nameof(DrawBarcodeCommand));
 				return;
+			}
 
 			char symbology = argument[0];
-			if (symbology != '2') return; // Only ITF supported for now
+			if (symbology != '2')
+			{
+				AppLogger.Warn("Barcode command ignored: unsupported symbology", nameof(DrawBarcodeCommand), new System.Collections.Generic.Dictionary<string, object>
+				{
+					{ "symbology", symbology.ToString() },
+				});
+				return; // Only ITF supported for now
+			}
 
 			if (!int.TryParse(argument.Substring(1, 2), out int narrowBase) || narrowBase < 1 || narrowBase > 36)
+			{
+				AppLogger.Warn("Barcode command ignored: invalid narrow base", nameof(DrawBarcodeCommand));
 				return;
+			}
 
 			if (!int.TryParse(argument.Substring(3, 3), out int heightBase) || heightBase < 1 || heightBase > 999)
+			{
+				AppLogger.Warn("Barcode command ignored: invalid height base", nameof(DrawBarcodeCommand));
 				return;
+			}
 
 			// Apply scaling from L command
 			int narrow = Math.Max(1, (int)Math.Round(narrowBase * DotUnit * context.ScaleX));
@@ -36,17 +52,26 @@ namespace sbpl_visualizer
 
 
 			string data = argument.Substring(6).Trim();
-			if (data.Length % 2 != 0 || !IsNumeric(data)) return;
-
-			int x = context.X + context.OffsetX;
-			int y = context.Y + context.OffsetY;
-			Debug.WriteLine("0253279830");
-			Debug.WriteLine(data);
+			if (data.Length % 2 != 0 || !IsNumeric(data))
+			{
+				AppLogger.Warn("Barcode command ignored: invalid numeric payload", nameof(DrawBarcodeCommand), new System.Collections.Generic.Dictionary<string, object>
+				{
+					{ "digit_count", data.Length },
+				});
+				return;
+			}
 
 			var state = g.Save();
 
 			int drawX = context.X + context.OffsetX;
 			int drawY = context.Y + context.OffsetY;
+
+			AppLogger.Info("Barcode render started", nameof(DrawBarcodeCommand), new System.Collections.Generic.Dictionary<string, object>
+			{
+				{ "digit_count", data.Length },
+				{ "x", drawX },
+				{ "y", drawY },
+			});
 
 			if (context.Rotation != 0)
 			{
@@ -86,6 +111,12 @@ namespace sbpl_visualizer
 			DrawPattern(g, drawX, drawY, "1101", narrow, wide, height);
 
 			g.Restore(state); // Restore original transform
+
+			AppLogger.Info("Barcode render completed", nameof(DrawBarcodeCommand), new System.Collections.Generic.Dictionary<string, object>
+			{
+				{ "digit_count", data.Length },
+				{ "height", height },
+			});
 		}
 
 		private void DrawPattern(Graphics g, int x, int y, string pattern, int narrow, int wide, int height)

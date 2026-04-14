@@ -51,13 +51,18 @@
   <ItemGroup>
     <Compile Include="Commands\CompositeCommand.cs" />
     <Compile Include="Commands\DrawBarcodeCommand.cs" />
+    <Compile Include="Commands\DrawDataMatrixPreviewCommand.cs" />
     <Compile Include="Commands\DrawTextCommand.cs" />
     <Compile Include="Commands\MoveXCommand.cs" />
     <Compile Include="Commands\MoveYCommand.cs" />
+    <Compile Include="Commands\NoOpCommand.cs" />
+    <Compile Include="Commands\SetCharacterPitchCommand.cs" />
+    <Compile Include="Commands\SetDataMatrixCommand.cs" />
     <Compile Include="Commands\SetMediumFontCommand.cs" />
     <Compile Include="Commands\SetOffsetCommand.cs" />
     <Compile Include="Commands\SetRotationCommand.cs" />
     <Compile Include="Commands\SetScaleCommand.cs" />
+    <Compile Include="Commands\SetUFontCommand.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +70,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="ISBPLCommand.cs" />
+    <Compile Include="Logging\AppLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SBPLContext.cs" />
